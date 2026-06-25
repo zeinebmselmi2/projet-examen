@@ -1,0 +1,28 @@
+{
+  "name": "smartreserve",
+  "version": "1.0.0",
+  "description": "Plateforme de réservation intelligente - Architecture microservices Node.js",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd gateway && npm install && cd ../services/user-service && npm install && cd ../catalog-service && npm install && cd ../booking-service && npm install && cd ../../client && npm install",
+    "kafka:up": "docker compose up -d",
+    "kafka:down": "docker compose down",
+    "start:user": "npm start --prefix services/user-service",
+    "start:catalog": "npm start --prefix services/catalog-service",
+    "start:booking": "npm start --prefix services/booking-service",
+    "start:gateway": "npm start --prefix gateway",
+    "start:client": "node client/test-client.js",
+    "dev": "concurrently \"npm run start:user\" \"npm run start:catalog\" \"npm run start:booking\" \"npm run start:gateway\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.10.9",
+    "@grpc/proto-loader": "^0.7.10",
+    "kafkajs": "^2.2.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

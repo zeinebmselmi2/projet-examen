@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package booking;
+
+service BookingService {
+  rpc CreateBooking (CreateBookingRequest) returns (BookingResponse);
+  rpc GetBooking (GetBookingRequest) returns (BookingResponse);
+  rpc ListBookings (ListBookingsRequest) returns (ListBookingsResponse);
+  rpc UpdateBookingStatus (UpdateBookingStatusRequest) returns (BookingResponse);
+  rpc CancelBooking (CancelBookingRequest) returns (CancelBookingResponse);
+  rpc ListUserBookings (ListUserBookingsRequest) returns (ListBookingsResponse);
+}
+
+message Booking {
+  string id = 1;
+  string user_id = 2;
+  string resource_id = 3;
+  string start_date = 4;
+  string end_date = 5;
+  double total_price = 6;
+  string status = 7;
+  string created_at = 8;
+}
+
+message CreateBookingRequest {
+  string user_id = 1;
+  string resource_id = 2;
+  string start_date = 3;
+  string end_date = 4;
+}
+
+message GetBookingRequest {
+  string id = 1;
+}
+
+message ListBookingsRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string status = 3;
+}
+
+message ListBookingsResponse {
+  repeated Booking bookings = 1;
+  int32 total = 2;
+}
+
+message UpdateBookingStatusRequest {
+  string id = 1;
+  string status = 2;
+}
+
+message CancelBookingRequest {
+  string id = 1;
+}
+
+message CancelBookingResponse {
+  bool success = 1;
+  string message = 2;
+  Booking booking = 3;
+}
+
+message ListUserBookingsRequest {
+  string user_id = 1;
+}
+
+message BookingResponse {
+  Booking booking = 1;
+}
